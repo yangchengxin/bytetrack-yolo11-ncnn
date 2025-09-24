@@ -17,7 +17,7 @@ else()
 endif()
 
 # ncnn
-set(ncnn_DIR D:\\company_Tenda\\25.zc\\install)
+set(ncnn_DIR ./ncnn)
 include_directories(${ncnn_DIR}/include)
 link_directories(${ncnn_DIR}/lib)
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
@@ -27,7 +27,7 @@ else()
 endif()
 
 # eigen3
-include_directories(D:\\company_Tenda\\env\\eigen-3.3.8\\eigen-3.3.8)
+include_directories(./eigen-3.3.8/eigen-3.3.8)
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${PROJECT_SOURCE_DIR}/include)
