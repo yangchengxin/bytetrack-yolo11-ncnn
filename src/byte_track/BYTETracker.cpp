@@ -13,7 +13,7 @@ BYTETracker::BYTETracker(int frame_rate, int track_buffer) {
 BYTETracker::~BYTETracker() {
 }
 
-std::vector<STrack> BYTETracker::update(const std::vector<Object> &objects, std::vector<Object> &objects_filter) {
+std::vector<STrack> BYTETracker::update(const std::vector<Object> &objects) {
 
     ////////////////// Step 1: Get detections //////////////////
     this->frame_id++;
@@ -46,11 +46,11 @@ std::vector<STrack> BYTETracker::update(const std::vector<Object> &objects, std:
             float score = objects[i].prob;
 
             /* ---- 选择跟踪类别 ---- */
-            if (objects[i].label != 0)
-            {
-                objects_filter.push_back(objects[i]);
-                continue;
-            }
+            //if (objects[i].label != 0)
+            //{
+            //    objects_filter.push_back(objects[i]);
+            //    continue;
+            //}
 
             STrack strack(STrack::tlbr_to_tlwh(tlbr_), score, objects[i].label);
             if (score >= track_thresh) {

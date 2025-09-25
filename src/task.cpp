@@ -4,6 +4,7 @@
 
 #include "task.h"
 #include "yolo11.h"
+#include "byte_track/BYTETracker.h"
 
 namespace ZhangChao
 {
@@ -11,6 +12,7 @@ namespace ZhangChao
 	{
 	private:
 		Yolov11* model = nullptr;
+		BYTETracker* tracker = nullptr;
 
 	public:
 		~bTask() override
@@ -30,18 +32,21 @@ namespace ZhangChao
 			std::vector<Object> yolo_objects;
 			model->detect(bgr, yolo_objects, confidence_threshold, nms_threshold);
 
-			for (auto& yolo_object : yolo_objects)
+			std::vector<STrack> tracks = tracker->update(yolo_objects);
+
+			for (auto& track : tracks)
 			{
-				ObjectCLs objc;
-				objc.x = yolo_object.rect.x;
-				objc.y = yolo_object.rect.y;
-				objc.w = yolo_object.rect.width;
-				objc.h = yolo_object.rect.height;
-				objc.labelId = yolo_object.label;
-				objc.prob = yolo_object.prob;
-				objc.clsId = -1;
-				objc.clsProb = -1;
-				objects.push_back(objc);
+				ObjectCLs obj;
+				obj.x = track.tlwh[0];
+				obj.y = track.tlwh[1];
+				obj.w = track.tlwh[2];
+				obj.h = track.tlwh[3];
+				obj.labelId = track.class_id;
+				obj.prob = track.score;
+				obj.clsId = -1;
+				obj.clsProb = -1;
+				obj.trackId = track.track_id;
+				objects.push_back(obj);
 			}
 
 			return true;
@@ -57,6 +62,8 @@ namespace ZhangChao
 				std::cerr << "load YOLOv5 model failed" << std::endl;
 				return false;
 			}
+			tracker = new BYTETracker(30, 30);
+
 			std::cout << "load model success!" << std::endl;
 			return true;
 		}

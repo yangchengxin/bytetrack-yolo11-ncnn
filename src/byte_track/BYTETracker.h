@@ -15,7 +15,7 @@ public:
 
     ~BYTETracker();
 
-    std::vector<STrack> update(const std::vector<Object> &objects, std::vector<Object> &objects_filter);
+    std::vector<STrack> update(const std::vector<Object> &objects);
 
     cv::Scalar get_color(int idx);
 

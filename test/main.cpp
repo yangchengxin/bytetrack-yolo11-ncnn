@@ -93,7 +93,7 @@ int main(int argc, char** argv)
             cv::Rect rect(object.x, object.y, object.w, object.h);
             cv::rectangle(bgr, rect, COLOR_PALETTE[object.labelId], 2);
             // 置信度保留2位小数
-            std::string label = cv::format("%s %.2f %d", class_names[object.labelId], object.prob, object.clsId);
+            std::string label = cv::format("%s %.2f %d", class_names[object.labelId], object.prob, object.trackId);
             cv::putText(bgr, label, cv::Point(object.x, object.y - 5),
                 cv::FONT_HERSHEY_SIMPLEX, 0.5, COLOR_PALETTE[object.labelId], 2);
         }

@@ -21,6 +21,7 @@ namespace ZhangChao {
         float prob{};
         int clsId = -1;
         float clsProb = -1;
+        int trackId{};
     };
 
     class Task {
