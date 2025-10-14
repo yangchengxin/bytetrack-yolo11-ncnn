@@ -37,8 +37,8 @@ int main(int argc, char** argv)
     cv::utils::logging::setLogLevel(cv::utils::logging::LOG_LEVEL_ERROR);
     const std::string yolo_param_path = "../assets/yolo11n_ncnn_model/model.ncnn.param";
     const std::string yolo_bin_path = "../assets/yolo11n_ncnn_model/model.ncnn.bin";
-    const std::string video_path = "palace.mp4";
-    const std::string output_path = "output.mp4";
+    const std::string video_path = "../assets/palace.mp4";
+    const std::string output_path = "../assets/output.mp4";
 
     auto task = ZhangChao::load(
         yolo_param_path,
